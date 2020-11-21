@@ -3,9 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-input-button-unit',
   template: `
-    <p>input-button-unit works! The title is: {{ title }}</p>
-
-    <input [value]="title" (keyup.enter)="changeTitle($event)" />
+    {{ title }}
+    <input
+      #inputElementRef
+      [value]="title"
+      (keyup.enter)="changeTitle($event.target.value)"
+    />
 
     <button (click)="changeTitle('Button Clicked!')">Save</button>
   `,
@@ -17,8 +20,7 @@ export class InputButtonUnitComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  changeTitle(event): void {
-    console.log(event);
-    this.title = event.target.value;
+  changeTitle(newTitle: string) {
+    this.title = newTitle;
   }
 }
